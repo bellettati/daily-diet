@@ -1,3 +1,4 @@
+# Business Rules
 - [ ] Able to create user
 - [ ] Able to identify users between requests
 - [ ] Able to register a meal, with the following info:
