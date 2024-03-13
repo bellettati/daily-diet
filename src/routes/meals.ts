@@ -37,15 +37,15 @@ export async function mealsRoutes(app: FastifyInstance) {
         const createMealBody = z.object({
             name: z.string(),
             description: z.string(),
+            date: z.string(),
         })
-        const { name, description } = createMealBody.parse(req.body)
-
+        const { name, description, date } = createMealBody.parse(req.body)
         const { sessionId } = req.cookies
         const user = await knex('users').where('session_id', sessionId).first()
         const lastMeal = (
             await knex('meals').where('user_id', user!.id).select()
         ).pop()
-        const currentDate = buildUTCDate().toISOString()
+        const currentDate = buildUTCDate(date).toISOString()
         let mealIsInsideDiet = false
         if (lastMeal) {
             const hourDifferenceBetweenMeals = getDateHourDifference(
@@ -56,7 +56,6 @@ export async function mealsRoutes(app: FastifyInstance) {
         } else {
             mealIsInsideDiet = true
         }
-
         await knex('meals').insert({
             id: randomUUID(),
             name,
@@ -68,6 +67,39 @@ export async function mealsRoutes(app: FastifyInstance) {
 
         return reply.status(201).send()
     })
+
+    app.put(
+        '/:id',
+        {
+            preHandler: validateUserMeal,
+        },
+        async (req, reply) => {
+            const requestParams = z.object({ id: z.string() })
+            const { id } = requestParams.parse(req.params)
+
+            const requestBody = z.object({
+                name: z.string().optional(),
+                description: z.string().optional(),
+                date: z.string().optional(),
+                inDiet: z.boolean().optional(),
+            })
+            const { name, description, date, inDiet } = requestBody.parse(
+                req.body
+            )
+            await knex('meals')
+                .where('id', id)
+                .update({
+                    name: name ?? undefined,
+                    description: description ?? undefined,
+                    meal_date: date
+                        ? buildUTCDate(date).toISOString()
+                        : undefined,
+                    inside_diet: inDiet ?? undefined,
+                })
+
+            return reply.status(204).send()
+        }
+    )
 
     app.delete(
         '/:id',
