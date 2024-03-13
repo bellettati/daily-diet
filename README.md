@@ -12,7 +12,7 @@
 -   [x] Able to delete meal
 -   [x] Able to list all meals of a user
 -   [x] Able to get a specific meal
--   [ ] Able to get user metrics
+-   [x] Able to get user metrics
     -   Number of meals registered
     -   Number of meals inside the diet
     -   Number of meals outside the diet
@@ -24,7 +24,7 @@
 
 -   [x] [GET] /meals, get all meals
 -   [x] [GET] /meals/:id, get specific meal
--   [ ] [GET] /users/:id/metrics, get user metrics
+-   [x] [GET] /users/:id/metrics, get user metrics
 -   [x] [POST] /meals, create meal
 -   [x] [POST] /users, create user
 -   [x] [PUT] /meals/:id, update meal
