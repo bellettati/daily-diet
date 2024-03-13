@@ -2,8 +2,27 @@ import { FastifyInstance } from 'fastify'
 import z from 'zod'
 import { knex } from '../database'
 import { randomUUID } from 'node:crypto'
+import { getBestMealSequence } from '../helpers/get-best-meal-sequence'
 
 export async function usersRoutes(app: FastifyInstance) {
+    app.get('/:id/metrics', async (req) => {
+        const requestParams = z.object({ id: z.string().uuid() })
+        const { id } = requestParams.parse(req.params)
+        const registeredMeals = await knex('meals')
+            .where('user_id', id)
+            .select()
+        const mealsInDiet = registeredMeals.filter(
+            (meal) => meal.inside_diet
+        ).length
+        const sequenceMealsInDiet = getBestMealSequence(registeredMeals)
+
+        return {
+            registeredMeals: registeredMeals.length,
+            mealsInDiet,
+            sequenceMealsInDiet,
+        }
+    })
+
     app.post('/', async (req, reply) => {
         const createUserRequestBody = z.object({
             email: z.string().email(),
