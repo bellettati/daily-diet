@@ -4,12 +4,6 @@ import { knex } from '../database'
 import { randomUUID } from 'node:crypto'
 
 export async function usersRoutes(app: FastifyInstance) {
-    //test route, should be deleted
-    app.get('/', async () => {
-        const users = await knex('users').select()
-        return { users }
-    })
-
     app.post('/', async (req, reply) => {
         const createUserRequestBody = z.object({
             email: z.string().email(),
@@ -19,11 +13,17 @@ export async function usersRoutes(app: FastifyInstance) {
         const { email, firstName, lastName } = createUserRequestBody.parse(
             req.body
         )
+        const sessionId = randomUUID()
+        reply.cookie('sessionId', sessionId, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7, // 7 days
+        })
         await knex('users').insert({
             id: randomUUID(),
             email,
             first_name: firstName,
             last_name: lastName,
+            session_id: sessionId,
         })
 
         return reply.status(201).send()
