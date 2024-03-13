@@ -17,7 +17,7 @@
     -   Number of meals outside the diet
     -   Best sequence of meals inside the diet
 -   [ ] User can only get, edit and delete meals he himself has created
--   [ ] Meals are considered in diet if consumed at least three hours after last meal
+-   [x] Meals are considered in diet if consumed at least three hours after last meal
 
 # End-points
 

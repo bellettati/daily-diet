@@ -7,11 +7,11 @@ export async function validateSessionId(
 ) {
     const { sessionId } = req.cookies
     if (!sessionId) {
-        reply.status(401).send({ error: 'Unauthorized' })
+        return reply.status(401).send({ error: 'Unauthorized' })
     }
 
     const user = await knex('users').where('session_id', sessionId).first()
     if (!user) {
-        reply.status(401).send({ error: 'Invalid session_id' })
+        return reply.status(401).send({ error: 'Invalid session_id' })
     }
 }
