@@ -5,6 +5,7 @@ import z from 'zod'
 import { randomUUID } from 'node:crypto'
 import { buildUTCDate } from '../helpers/build-utc-date'
 import { getDateHourDifference } from '../helpers/get-date-hour-difference'
+import { validateUserMeal } from '../middlewares/validate-user-meal'
 
 export async function mealsRoutes(app: FastifyInstance) {
     app.addHook('preHandler', validateSessionId)
@@ -16,6 +17,21 @@ export async function mealsRoutes(app: FastifyInstance) {
         const meals = await knex('meals').where('user_id', user!.id).select()
         return { meals }
     })
+
+    app.get(
+        '/:id',
+        {
+            preHandler: validateUserMeal,
+        },
+        async (req) => {
+            const requestParams = z.object({
+                id: z.string().uuid(),
+            })
+            const { id } = requestParams.parse(req.params)
+            const meal = await knex('meals').where('id', id).first()
+            return { meal }
+        }
+    )
 
     app.post('/', async (req, reply) => {
         const createMealBody = z.object({
@@ -53,21 +69,18 @@ export async function mealsRoutes(app: FastifyInstance) {
         return reply.status(201).send()
     })
 
-    app.delete('/:id', async (req, reply) => {
-        const { sessionId } = req.cookies
-        const requestParams = z.object({
-            id: z.string().uuid(),
-        })
-        const { id } = requestParams.parse(req.params)
-
-        const meal = await knex('meals').where('id', id).first()
-        const user = await knex('users').where('session_id', sessionId).first()
-        if (meal!.user_id !== user!.id) {
-            return reply.status(401).send({ error: 'Unauthorized' })
+    app.delete(
+        '/:id',
+        {
+            preHandler: validateUserMeal,
+        },
+        async (req, reply) => {
+            const requestParams = z.object({
+                id: z.string().uuid(),
+            })
+            const { id } = requestParams.parse(req.params)
+            await knex('meals').where('id', id).del()
+            return reply.status(204).send()
         }
-
-        await knex('meals').where('id', id).del()
-
-        return reply.status(204).send()
-    })
+    )
 }

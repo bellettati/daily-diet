@@ -8,9 +8,9 @@
     -   Date and time
     -   Is inside diet or not
 -   [ ] Able to edit a meal, beeing possible to alter any info
--   [ ] Able to delete meal
+-   [x] Able to delete meal
 -   [x] Able to list all meals of a user
--   [ ] Able to get a specific meal
+-   [x] Able to get a specific meal
 -   [ ] Able to get user metrics
     -   Number of meals registered
     -   Number of meals inside the diet
@@ -22,9 +22,9 @@
 # End-points
 
 -   [x] [GET] /meals, get all meals
--   [ ] [GET] /meals/:id, get specific meal
+-   [x] [GET] /meals/:id, get specific meal
 -   [ ] [GET] /users/:id/metrics, get user metrics
 -   [x] [POST] /meals, create meal
 -   [x] [POST] /users, create user
 -   [ ] [PUT] /meals/:id, update meal
--   [ ] [DELETE] /meals/:id, update meal
+-   [x] [DELETE] /meals/:id, update meal
