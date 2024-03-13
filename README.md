@@ -1,7 +1,7 @@
 # Business Rules
 
--   [ ] Able to create user
--   [ ] Able to identify users between requests
+-   [x] Able to create user
+-   [x] Able to identify users between requests
 -   [ ] Able to register a meal, with the following info:
     -   Name
     -   Description
@@ -17,11 +17,12 @@
     -   Number of meals outside the diet
     -   Best sequence of meals inside the diet
 -   [ ] User can only get, edit and delete meals he himself has created
+-   [ ] Meals are considered in diet if consumed at least three hours after last meal
 
 # End-points
 
 -   [ ] [GET] /meals, get all meals
--   [ ] [GET] /meals/:id, get all meals
+-   [ ] [GET] /meals/:id, get specific meal
 -   [ ] [GET] /users/:id/metrics, get user metrics
 -   [ ] [POST] /meals, create meal
 -   [ ] [POST] /users, create user
