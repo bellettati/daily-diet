@@ -7,8 +7,11 @@ import { randomUUID } from 'node:crypto'
 export async function mealsRoutes(app: FastifyInstance) {
     app.addHook('preHandler', validateSessionId)
 
-    app.get('/', async () => {
-        const meals = await knex('meals').select()
+    app.get('/', async (req) => {
+        const { sessionId } = req.cookies
+
+        const user = await knex('users').where('session_id', sessionId).first()
+        const meals = await knex('meals').where('user_id', user!.id).select()
         return { meals }
     })
 

@@ -2,14 +2,14 @@
 
 -   [x] Able to create user
 -   [x] Able to identify users between requests
--   [ ] Able to register a meal, with the following info:
+-   [x] Able to register a meal, with the following info:
     -   Name
     -   Description
     -   Date and time
     -   Is inside diet or not
 -   [ ] Able to edit a meal, beeing possible to alter any info
 -   [ ] Able to delete meal
--   [ ] Able to list all meals of a user
+-   [x] Able to list all meals of a user
 -   [ ] Able to get a specific meal
 -   [ ] Able to get user metrics
     -   Number of meals registered
@@ -21,10 +21,10 @@
 
 # End-points
 
--   [ ] [GET] /meals, get all meals
+-   [x] [GET] /meals, get all meals
 -   [ ] [GET] /meals/:id, get specific meal
 -   [ ] [GET] /users/:id/metrics, get user metrics
--   [ ] [POST] /meals, create meal
--   [ ] [POST] /users, create user
+-   [x] [POST] /meals, create meal
+-   [x] [POST] /users, create user
 -   [ ] [PUT] /meals/:id, update meal
 -   [ ] [DELETE] /meals/:id, update meal
