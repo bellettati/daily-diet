@@ -1,25 +1,29 @@
 {
-  "name": "daily-diet",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "tsx watch src/server.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "sqlite3": "^5.1.7",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.7.1",
-    "typescript": "^5.4.2"
-  },
-  "dependencies": {
-    "@fastify/cookie": "^9.3.1",
-    "dotenv": "^16.4.5",
-    "fastify": "^4.26.2",
-    "knex": "^3.1.0",
-    "zod": "^3.22.4"
-  }
+    "name": "daily-diet",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "tsx watch src/server.ts",
+        "test": "npx vitest"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/supertest": "^6.0.2",
+        "sqlite3": "^5.1.7",
+        "supertest": "^6.3.4",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.7.1",
+        "typescript": "^5.4.2",
+        "vitest": "^1.3.1"
+    },
+    "dependencies": {
+        "@fastify/cookie": "^9.3.1",
+        "dotenv": "^16.4.5",
+        "fastify": "^4.26.2",
+        "knex": "^3.1.0",
+        "zod": "^3.22.4"
+    }
 }

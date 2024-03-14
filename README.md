@@ -28,4 +28,4 @@
 -   [x] [POST] /meals, create meal
 -   [x] [POST] /users, create user
 -   [x] [PUT] /meals/:id, update meal
--   [x] [DELETE] /meals/:id, update meal
+-   [x] [DELETE] /meals/:id, delete meal
