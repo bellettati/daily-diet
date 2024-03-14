@@ -125,4 +125,28 @@ describe('users routes', () => {
             })
             .expect(204)
     })
+
+    it('should delete meal', async () => {
+        const createUserResponse = await request(app.server)
+            .post('/users')
+            .send({
+                email: 'test@email.com',
+                firstName: 'John',
+                lastName: 'Doe',
+            })
+        const cookies = createUserResponse.get('Set-Cookie')
+        await request(app.server).post('/meals').set('Cookie', cookies).send({
+            name: 'Breakfast',
+            description: 'eggs and bread',
+            date: '13-MAR-2024 13:43:07',
+        })
+        const { body: listAllMealsBody } = await request(app.server)
+            .get('/meals')
+            .set('Cookie', cookies)
+
+        await request(app.server)
+            .delete(`/meals/${listAllMealsBody.meals[0].id}`)
+            .set('Cookie', cookies)
+            .expect(204)
+    })
 })
